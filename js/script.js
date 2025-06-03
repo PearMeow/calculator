@@ -14,7 +14,6 @@ function div(x = 0, y = 0) {
     return x / y;
 }
 
-// evaluates if equal or another operation is pressed while first, operation, and second exist
 function operate(first = "", operation = "", second = "") {
     switch (operation) {
         case ("+"):
@@ -29,15 +28,45 @@ function operate(first = "", operation = "", second = "") {
     return "ERR_NO_OP";
 }
 
+const FIRST = true;
+const SECOND = false;
+
 let first = "";
 let operation = "";
 let second = "";
 let decimal = false;
+let currNum = FIRST;
+
+
+const calcDisplay = document.querySelector("display");
+const nums = document.querySelectorAll("num");
+const operations = document.querySelectorAll("op");
+const deletion = document.querySelectorAll("deletion");
+
+for (const op of operations) {
+    op.addEventListener("click", () => {
+        const theOp = op.textContent;
+        if (first !== "" && operation !== "" && second !== "") {
+            first = operate(first, operation, second);
+            if (theOp !== "=") {
+                operation = theOp;
+            }
+            currNum = FIRST;
+            calcDisplay.textContent = first;
+        } else if (first !== "" && theOp !== "=") {
+            operation = theOp;
+            currNum = SECOND;
+        }
+    })
+}
 
 
 
-// on operation: run operate if conditions met, otherwise replace operation unless op is equals
+// op
+// on operation: run operate if conditions met, otherwise replace operation if first exists unless op is equals
+// deletion
 // on AC: reset first, operation, and second to ""
 // on DEL: pop last char from current operand if not empty, otherwise do nothing
+// num
 // on num: append num to current operand
 // on decimal: if decimal exists, do nothing, othewise if operand empty append 0., otherwise append .
