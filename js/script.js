@@ -10,7 +10,7 @@ function mul(x = 0, y = 0) {
     return x * y;
 }
 function div(x = 0, y = 0) {
-    if (y = 0) return "ERR_DIV_BY_0";
+    if (y === 0) return "ERR_DIV_BY_0";
     return x / y;
 }
 
@@ -50,15 +50,16 @@ for (const op of operations) {
             first = "" + operate(first, operation, second);
             if (theOp !== "=") {
                 operation = theOp;
-            } else {
+            } else { // if theOp === "="
                 operation = "";
             }
             second = "";
+            calcDisplay.textContent = first;
+            if (first === "ERR_DIV_BY_0") first = "";
             currNum = FIRST;
             if (first.includes(".")) {
                 decimal = true;
             }
-            calcDisplay.textContent = first;
         } else if (first !== "" && theOp !== "=") {
             operation = theOp;
             currNum = SECOND;
@@ -71,6 +72,7 @@ for (const num of nums) {
     num.addEventListener("click", () => {
         let theNum = (currNum === FIRST) ? first : second;
         if (theNum.length === 13) return;
+        if (num.textContent === "." && decimal === true) return;
         if (num.textContent === "." && decimal === false) {
             theNum += ".";
             decimal = true;
@@ -80,9 +82,36 @@ for (const num of nums) {
         if (currNum === FIRST) {
             first = theNum;
             calcDisplay.textContent = first;
-        } else {
+        } else { // if currNum === SECOND
             second = theNum;
             calcDisplay.textContent = second;
+        }
+    });
+}
+
+for (const del of deletion) {
+    del.addEventListener("click", () => {
+        if (del.textContent === "AC") {
+            first = "";
+            operation = "";
+            second = "";
+            decimal = false;
+            currNum = FIRST;
+            calcDisplay.textContent = first;
+        } else { // if del.textContent === "DEL"
+            let theNum = (currNum === FIRST) ? first : second;
+            if (theNum.length === 0) return;
+            if (theNum[theNum.length - 1] === ".") {
+                decimal = false;
+            }
+            theNum = theNum.slice(0, theNum.length - 1);
+            if (currNum === FIRST) {
+                first = theNum;
+                calcDisplay.textContent = first;
+            } else { // if currNum === SECOND
+                second = theNum;
+                calcDisplay.textContent = second;
+            }
         }
     });
 }
