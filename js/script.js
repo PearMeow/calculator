@@ -1,5 +1,3 @@
-console.log("If you can see this, the script is running");
-
 function add(x = 0, y = 0) {
     return x + y;
 }
@@ -22,13 +20,13 @@ function clean(x = 0) {
 
 function operate(first = "", operation = "", second = "") {
     switch (operation) {
-        case ("+"):
+        case "+":
             return clean(add(+first, +second));
-        case ("-"):
+        case "-":
             return clean(sub(+first, +second));
-        case ("*"):
+        case "*":
             return clean(mul(+first, +second));
-        case ("/"):
+        case "/":
             return clean(div(+first, +second));
     }
     return "ERR_NO_OP";
@@ -114,6 +112,27 @@ function deleteNum(mode = "") {
     }
 }
 
+function keyToFunction(key = "") {
+    if (!isNaN(parseInt(key)) || key === ".") {
+        appendToNum(key);
+        return;
+    }
+    switch (key) {
+        case "Backspace":
+            deleteNum("DEL");
+            break;
+        case "+":
+        case "-":
+        case "*":
+        case "/":
+        case "=":
+            doOperation(key);
+            break;
+        case "Enter":
+            doOperation("=");
+    }
+}
+
 const FIRST = true;
 const SECOND = false;
 
@@ -123,11 +142,12 @@ let second = "";
 let decimal = false;
 let currNum = FIRST;
 
-
 const calcDisplay = document.querySelector(".display");
 const nums = document.querySelectorAll(".num");
 const operations = document.querySelectorAll(".op");
 const deletion = document.querySelectorAll(".deletion");
+
+document.addEventListener("keydown", (e) => keyToFunction(e.key));
 
 for (const op of operations) {
     op.addEventListener("click", () => doOperation(op.textContent));
