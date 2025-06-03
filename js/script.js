@@ -38,16 +38,16 @@ let decimal = false;
 let currNum = FIRST;
 
 
-const calcDisplay = document.querySelector("display");
-const nums = document.querySelectorAll("num");
-const operations = document.querySelectorAll("op");
-const deletion = document.querySelectorAll("deletion");
+const calcDisplay = document.querySelector(".display");
+const nums = document.querySelectorAll(".num");
+const operations = document.querySelectorAll(".op");
+const deletion = document.querySelectorAll(".deletion");
 
 for (const op of operations) {
     op.addEventListener("click", () => {
         const theOp = op.textContent;
         if (first !== "" && operation !== "" && second !== "") {
-            first = operate(first, operation, second);
+            first = "" + operate(first, operation, second);
             if (theOp !== "=") {
                 operation = theOp;
             } else {
@@ -62,6 +62,7 @@ for (const op of operations) {
         } else if (first !== "" && theOp !== "=") {
             operation = theOp;
             currNum = SECOND;
+            calcDisplay.textContent = second;
         }
     })
 }
@@ -78,8 +79,10 @@ for (const num of nums) {
         }
         if (currNum === FIRST) {
             first = theNum;
+            calcDisplay.textContent = first;
         } else {
             second = theNum;
+            calcDisplay.textContent = second;
         }
     });
 }
