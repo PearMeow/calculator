@@ -1,4 +1,4 @@
-console.log("The script is running");
+console.log("If you can see this, the script is running");
 
 function add(x = 0, y = 0) {
     return x + y;
