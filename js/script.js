@@ -73,7 +73,16 @@ for (const num of nums) {
         let theNum = (currNum === FIRST) ? first : second;
         if (theNum.length === 13) return;
         if (num.textContent === "." && decimal === true) return;
-        if (num.textContent === "." && decimal === false) {
+        if (theNum.length === 1 && num.textContent !== ".") {
+            if (theNum[0] === "0") {
+                theNum = num.textContent;
+            } else {
+                theNum += num.textContent;
+            }
+        } else if (num.textContent === "." && decimal === false) {
+            if (theNum.length === 0) {
+                theNum += "0";
+            }
             theNum += ".";
             decimal = true;
         } else {
