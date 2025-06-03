@@ -50,14 +50,38 @@ for (const op of operations) {
             first = operate(first, operation, second);
             if (theOp !== "=") {
                 operation = theOp;
+            } else {
+                operation = "";
             }
+            second = "";
             currNum = FIRST;
+            if (first.includes(".")) {
+                decimal = true;
+            }
             calcDisplay.textContent = first;
         } else if (first !== "" && theOp !== "=") {
             operation = theOp;
             currNum = SECOND;
         }
     })
+}
+
+for (const num of nums) {
+    num.addEventListener("click", () => {
+        let theNum = (currNum === FIRST) ? first : second;
+        if (theNum.length === 13) return;
+        if (num.textContent === "." && decimal === false) {
+            theNum += ".";
+            decimal = true;
+        } else {
+            theNum += num.textContent;
+        }
+        if (currNum === FIRST) {
+            first = theNum;
+        } else {
+            second = theNum;
+        }
+    });
 }
 
 
