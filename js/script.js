@@ -64,6 +64,7 @@ for (const op of operations) {
             operation = theOp;
             currNum = SECOND;
             calcDisplay.textContent = second;
+            decimal = false;
         }
     })
 }
@@ -124,14 +125,3 @@ for (const del of deletion) {
         }
     });
 }
-
-
-
-// op
-// on operation: run operate if conditions met, otherwise replace operation if first exists unless op is equals
-// deletion
-// on AC: reset first, operation, and second to ""
-// on DEL: pop last char from current operand if not empty, otherwise do nothing
-// num
-// on num: append num to current operand
-// on decimal: if decimal exists, do nothing, othewise if operand empty append 0., otherwise append .
