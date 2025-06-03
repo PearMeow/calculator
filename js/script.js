@@ -14,16 +14,22 @@ function div(x = 0, y = 0) {
     return x / y;
 }
 
+function clean(x = 0) {
+    if (x === "ERR_DIV_BY_0") return x;
+    if (x > 999999999999999) return "ERR_OVERFLOW";
+    return (Math.round(x * 100000) / 100000);
+}
+
 function operate(first = "", operation = "", second = "") {
     switch (operation) {
         case ("+"):
-            return add(+first, +second);
+            return clean(add(+first, +second));
         case ("-"):
-            return sub(+first, +second);
+            return clean(sub(+first, +second));
         case ("*"):
-            return mul(+first, +second);
+            return clean(mul(+first, +second));
         case ("/"):
-            return div(+first, +second);
+            return clean(div(+first, +second));
     }
     return "ERR_NO_OP";
 }
@@ -55,7 +61,7 @@ for (const op of operations) {
             }
             second = "";
             calcDisplay.textContent = first;
-            if (first === "ERR_DIV_BY_0") first = "";
+            if (first === "ERR_DIV_BY_0" || first === "ERR_OVERFLOW") first = "";
             currNum = FIRST;
             if (first.includes(".")) {
                 decimal = true;
