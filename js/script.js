@@ -34,21 +34,6 @@ function operate(first = "", operation = "", second = "") {
     return "ERR_NO_OP";
 }
 
-const FIRST = true;
-const SECOND = false;
-
-let first = "";
-let operation = "";
-let second = "";
-let decimal = false;
-let currNum = FIRST;
-
-
-const calcDisplay = document.querySelector(".display");
-const nums = document.querySelectorAll(".num");
-const operations = document.querySelectorAll(".op");
-const deletion = document.querySelectorAll(".deletion");
-
 function doOperation(theOp = "") {
     if (first !== "" && operation !== "" && second !== "") {
         first = "" + operate(first, operation, second);
@@ -128,6 +113,21 @@ function deleteNum(mode = "") {
         }
     }
 }
+
+const FIRST = true;
+const SECOND = false;
+
+let first = "";
+let operation = "";
+let second = "";
+let decimal = false;
+let currNum = FIRST;
+
+
+const calcDisplay = document.querySelector(".display");
+const nums = document.querySelectorAll(".num");
+const operations = document.querySelectorAll(".op");
+const deletion = document.querySelectorAll(".deletion");
 
 for (const op of operations) {
     op.addEventListener("click", () => doOperation(op.textContent));
